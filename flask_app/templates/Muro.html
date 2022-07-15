@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muro Privado</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/bootstrap.css') }}">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+    <div class="container" style="margin: 25px auto 0px auto;">
+        <div class="row">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="width: 100%; border-radius: 3px;">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/" style="font-weight: bold;">MURO PRIVADO - CODING DOJO</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: right;">
+                        <div class="d-flex" style="align-items: center;">
+                            <h4 style="color: white;">Bienvenid@, {{ usuario.nombre }} {{ usuario.apellido }}</h4>
+                            <div class="mb-3">
+                                <a href="/Cerrar/Sesion" style="margin: 20px; padding: auto;">Cerrar Sesion</a>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </nav>
+        </div>
+        <div class="row" style="margin-top: 15px;">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header" style="font-weight: bold; color: rgb(6, 40, 133);">{{ numMensajes }}<span style="color: black;"> Mensajes para Tí</span> </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <th></th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                            {% for mensaje in listaMensajes %}
+                                <tr>
+                                    <td><p><span style="font-weight: bold;">{{ mensaje.nombrePara }} {{ mensaje.apellidoPara }}</span> dice: <p>{{ mensaje['contenido'] }}</p><p><span style="color: blueviolet; font-size: 0.7rem;"> ( {{ mensaje.tiempo() }} ) </span></p></td>
+                                    <td><a name="id" href="/Eliminar/Mensaje/{{ mensaje.id }}"><ion-icon name="trash-outline" size="large"></ion-icon></a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header" style="font-weight: bold; color: rgb(6, 40, 133);"><span style="color: black;"> Enviar Mensajes</span> </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                                {% for mensaje in listaUsuarios %}
+                                    <form action="/Enviar/Mensaje" method="post">
+                                        <tr>
+                                            <input type="hidden" name="usuarioIdDe" value="{{ usuario.id }}">
+                                            <input type="hidden" name="usuarioIdPara" value="{{ mensaje.id }}">
+                                            <td>{{ mensaje.nombre }}</td>
+                                            <td><textarea name="contenido" id="" cols="30" rows="3" class="form-control"></textarea></td>
+                                            <td><input type="submit" value="Enviar" class="btn btn-dark"></td>
+                                        </tr>
+                                    </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

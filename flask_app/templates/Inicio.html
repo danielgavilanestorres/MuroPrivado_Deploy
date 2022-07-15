@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesion y Registro</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/bootstrap.css') }}">
+</head>
+
+<body>
+    <div class="container" style="margin: 25px auto 0px auto;">
+        <div class="row">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="width: 100%; border-radius: 3px;">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/" style="font-weight: bold;">MURO PRIVADO</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+        <div class="row" style="margin: 15px; background-color: rgb(223, 223, 223); border-radius: 3px;">
+            {% with mensajes = get_flashed_messages(with_categories = True) %}
+                {% if mensajes %}
+                    {% for categoria, mensaje in mensajes %}
+                        <label class="{{ categoria }}">{{ mensaje }}</label>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+        <div class="row" style="margin-top: 15px;">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header" style="font-weight: bold;">REGISTRO</div>
+                    <div class="card-body">
+                        <form action="/Registro/Usuario" method="post">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre: </label>
+                                <input name="nombre" type="text" class="form-control" placeholder="Escriba su Nombre" aria-label="default input example">
+                            </div>
+                            <div class="mb-3">
+                                <label for="apellido" class="form-label">Apellido: </label>
+                                <input name="apellido" type="text" class="form-control" placeholder="Escriba su Apellido" aria-label="default input example">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Correo Electronico: </label>
+                                <input name="correo" type="email" class="form-control" id="exampleFormControlInput1" placeholder="nombre@ejemplo.com">
+                            </div>
+                            <div class="mb-3">
+                                <label name="clave" for="exampleInputPassword1" class="form-label">Contraseña: </label>
+                                <input name="clave" type="password" class="form-control" id="exampleInputPassword1">
+                            </div>
+                            <div class="mb-3">
+                                <label name="claveOk" for="exampleInputPassword1" class="form-label">Confirmar Contraseña: </label>
+                                <input name="claveOk" type="password" class="form-control" id="exampleInputPassword1">
+                            </div>
+                            <div class="mb-3">
+                                <input type="submit" class="btn btn-primary" value="Registrar">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header" style="font-weight: bold;">INICIO DE SESION</div>
+                    <div class="card-body">
+                        <form action="/Iniciar/Sesion" method="post">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Correo Electronico: </label>
+                                <input name="correo" type="email" class="form-control" id="exampleFormControlInput1" placeholder="nombre@ejemplo.com">
+                            </div>
+                            <div class="mb-3">
+                                <label name="clave" for="exampleInputPassword1" class="form-label">Contraseña: </label>
+                                <input name="clave" type="password" class="form-control" id="exampleInputPassword1">
+                            </div>
+                            <div class="mb-3">
+                                <input type="submit" class="btn btn-primary" value="Iniciar">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
